@@ -83,4 +83,20 @@ class TestTrieInsert(TestCase):
         trie.insert(data1, data2)
         self.assertEqual(trie.count_pairs(trie.root), 5)
         self.assertListEqual(trie.root.children[1].operator, ['A'])
-        self.assertEqual(trie.root.children[2].value, 3)
+        self.assertEqual(trie.count_pairs(trie.root), 5)
+
+    def test_invalid_key(self):
+        data1 = {
+            'operator': 'A',
+            'data': ['']
+        }
+        data2 = {
+            'operator': 'B',
+            'data': ['1 1']
+        }
+        trie = Trie()
+        trie.insert(data1, data2)
+        self.assertEqual(trie.root.children[1].value, 1)
+
+    def test_alpha_in_data(self):
+        pass

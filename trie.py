@@ -36,11 +36,16 @@ class Trie:
         for arg in args:
             operator = arg['operator']
             for item in arg['data']:
-                key = str(item.split()[0])
-                value = float(item.split()[1])
-                self._add_node(operator, key, value)
+                try:
+                    key = item.split()[0]
+                    value = item.split()[1]
+                except IndexError:
+                    print(f'Missing data on operator: {operator}, data:{item}')
+                else:
+                    if key.isdigit() & value.isdigit():
+                        self._add_node(operator, str(key), float(value))
         
-    def search(self, key):
+    def search(self, search):
         pass
 
     @staticmethod

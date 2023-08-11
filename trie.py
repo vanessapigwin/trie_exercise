@@ -1,3 +1,5 @@
+import re
+
 class TrieNode:
     def __init__(self, digit='', value=''):
         self.children = [None] * 10 # any node can have children from 0 to 9
@@ -48,15 +50,24 @@ class Trie:
                         print(f'Key and/or value invalid. Key: {key}, value:{value}')
         
     def search(self, search):
+        search = clean_data(search)
         key = ''
-        value = ''
-        operator = ''
 
-        return {
-            'key': key,
-            'value': value,
-            'operator': operator
-        }
+        current = self.root
+        for digit in search:
+            if not current.children[int(digit)] is None:
+                key += digit
+            else:
+                break
+            current = current.children[int(digit)]
+            print(current.value)
+
+        if key:
+            return {
+                'key': key,
+                'value': current.value,
+                'operator': current.operator
+            }
 
     @staticmethod
     def count_pairs(root):
@@ -69,3 +80,10 @@ class Trie:
             if digit is not None:
                 result += Trie.count_pairs(digit)
         return result
+    
+
+# ultility
+def clean_data(data):
+    if re.match(r'[a-zA-Z]', data):
+        return
+    return re.sub(r'\D', '', data)

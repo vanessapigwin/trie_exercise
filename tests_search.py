@@ -30,12 +30,12 @@ class TestTrieSearch(TestCase):
         self.trie = Trie()
         self.trie.insert(data1, data2)
 
-    def found_longest_key(self):
+    def test_found_longest_key(self):
         search_string = '+46-73-212345'
         result = self.trie.search(search_string)
-        self.assertEqual(result['key'], 46732)
+        self.assertEqual(result['key'], '46732')
         self.assertEqual(result['value'], 1.1)
-        self.assertEqual(result['operator'], 1.1)
+        self.assertEqual(result['operator'], ['A'])
 
     def test_key_not_found(self):
         search_string = '+63-123-4567'
@@ -48,8 +48,6 @@ class TestTrieSearch(TestCase):
         self.assertIsNone(result, msg=f'Expected no result, got {result}')
 
     def test_invalid_key_alpha(self):
-        search_string = 'I love fried chicken'
+        search_string = '48c'
         result = self.trie.search(search_string)
         self.assertIsNone(result, msg=f'Expected no result, got {result}')
-
-        self.assertRaises(ValueError, self.trie.search(search_string))

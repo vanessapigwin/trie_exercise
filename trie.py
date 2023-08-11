@@ -42,8 +42,10 @@ class Trie:
                 except IndexError:
                     print(f'Missing data on operator: {operator}, data:{item}')
                 else:
-                    if key.isdigit() & value.isdigit():
+                    try:
                         self._add_node(operator, str(key), float(value))
+                    except ValueError:
+                        print(f'Key and/or value invalid. Key: {key}, value:{value}')
         
     def search(self, search):
         pass

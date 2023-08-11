@@ -60,7 +60,6 @@ class Trie:
             else:
                 break
             current = current.children[int(digit)]
-            print(current.value)
 
         if key:
             return {

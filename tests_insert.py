@@ -14,7 +14,6 @@ class TestTrieInsert(TestCase):
         }
         trie = Trie()
         trie.insert(data1, data2)
-
         self.assertEqual(trie.root.children[1].value, 2)
         self.assertEqual(trie.root.children[3].value, 4)
 
@@ -29,12 +28,10 @@ class TestTrieInsert(TestCase):
         }
         trie = Trie()
         trie.insert(data1, data2)
-        entries = trie.count_pairs(trie.root)
-
         self.assertEqual(trie.root.children[1].value, 0.9)
         self.assertEqual(trie.root.children[4].value, '')
         self.assertEqual(trie.root.children[4].children[4].value, 0.5)
-        self.assertEqual(entries, 2)
+        self.assertEqual(trie.count_pairs(trie.root), 2)
 
     def test_with_common_prefix(self):
         data1 = {
@@ -47,7 +44,6 @@ class TestTrieInsert(TestCase):
         }
         trie = Trie()
         trie.insert(data1, data2)
-
         self.assertEqual(trie.root.children[1].value, 0.9)
         self.assertEqual(trie.root.children[1].children[1].value, 0.5)
         self.assertEqual(trie.count_pairs(trie.root), 2)
@@ -63,11 +59,19 @@ class TestTrieInsert(TestCase):
         }
         trie = Trie()
         trie.insert(data1, data2)
-        self.assertListEqual(trie.root.children[1].operator, ['A','B'])
-        self.assertListEqual(trie.root.children[2].operator, ['B'])
         self.assertEqual(trie.root.children[1].value, 0.9)
         self.assertEqual(trie.root.children[2].value, 0)
         self.assertEqual(trie.count_pairs(trie.root), 3)
+        self.assertListEqual(
+            trie.root.children[1].operator, 
+            ['A','B'],
+            msg='Expected A and B in list due to same price'
+        )
+        self.assertListEqual(
+            trie.root.children[2].operator, 
+            ['B'],
+            msg='Expected B, lower price is overwritten'
+        )
 
     def test_same_operator(self):
         data1 = {

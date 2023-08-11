@@ -48,7 +48,15 @@ class Trie:
                         print(f'Key and/or value invalid. Key: {key}, value:{value}')
         
     def search(self, search):
-        pass
+        key = ''
+        value = ''
+        operator = ''
+
+        return {
+            'key': key,
+            'value': value,
+            'operator': operator
+        }
 
     @staticmethod
     def count_pairs(root):
